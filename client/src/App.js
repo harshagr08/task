@@ -225,7 +225,7 @@ export default class App extends Component {
                                 </Form.Field>
                                 <Button.Group floated='right'>
                                     <Button type='submit'
-                                            disabled={ selectedProduct.customerName === undefined || selectedProduct.customerName.length < 3 }>Submit</Button>
+                                          >+add</Button>
                                 </Button.Group>
                             </Form>
                         </Grid.Column>
