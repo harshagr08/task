@@ -40,7 +40,7 @@ export default class App extends Component {
                 netAmount: '',
                 discountPercentage: '',
                 unit: '',
-            }
+            },
         })
     }
 
@@ -76,15 +76,15 @@ export default class App extends Component {
         this.fectchProducts();
     }
 
-    calculateAmount = () => {
+    calculateAmount = (value) => {
         console.log('here ...');
         const product = JSON.parse(JSON.stringify(this.state.selectedProduct));
-        const tamnt = product.rate * product.qty;
-        const netAmount = product.rate * product.qty - 1;
+        const totalAmount = product.rate * value;
+        const netAmount = product.rate * value - 1;
         this.setState(prevState => ({
             selectedProduct: {
                 ...prevState.selectedProduct,
-                totalAmount: tamnt, netAmount: netAmount
+                totalAmount: totalAmount, netAmount: netAmount
             }
         }));
 
@@ -114,7 +114,7 @@ export default class App extends Component {
             }
         }));
         if (e.target.name === 'qty' || e.target.name === 'discountPercentage') {
-            this.calculateAmount();
+            this.calculateAmount(e.target.value);
         }
         // this.calculateAmount();
     }
@@ -128,19 +128,19 @@ export default class App extends Component {
     submitData = () => {
         async function postData(url = '', data = {}) {
             const response = await fetch(url, {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache', 
-                credentials: 'same-origin',
+                method: 'POST', 
+                mode: 'cors', 
+                cache: 'no-cache',
+                credentials: 'same-origin', 
                 headers: {
                     'Content-Type': 'application/json'
-                   
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: 'follow', 
-                referrerPolicy: 'no-referrer', 
+                referrerPolicy: 'no-referrer',
                 body: JSON.stringify(data)
             });
-            return response.json(); 
+            return response.json();
         }
 
         const tempData = JSON.parse(JSON.stringify(this.state.selectedProduct));
@@ -156,7 +156,7 @@ export default class App extends Component {
             name: tempData.customerName
         })
             .then(data => {
-                console.log(data); // JSON data parsed by `data.json()` call
+                console.log(data); 
                 this.resetCart();
             })
     }
@@ -225,7 +225,7 @@ export default class App extends Component {
                                 </Form.Field>
                                 <Button.Group floated='right'>
                                     <Button type='submit'
-                                          >+add</Button>
+                                         >+add</Button>
                                 </Button.Group>
                             </Form>
                         </Grid.Column>
